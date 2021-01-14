@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('registrar');
   const input = form.querySelector('input');
+  const inputError = form.querySelector('input + span.error');
   
   const mainDiv = document.querySelector('.main');
   const ul = document.getElementById('invitedList');
@@ -55,13 +56,23 @@ document.addEventListener('DOMContentLoaded', () => {
     appendToLI('button', 'textContent', 'remove');
     return li;
   }
-  
   form.addEventListener('submit', (e) => {
+    function showError() {
+      if(input.validity.valueMissing) {
+        // If the field is empty
+        // display the following error message.
+        inputError.textContent = 'You need to enter a name.';
+      }
+    }
     e.preventDefault();
-    const text = input.value;
-    input.value = '';
-    const li = createLI(text);
-    ul.appendChild(li);
+    if (!input.validity.valid) {
+      showError();
+    } else {
+      const text = input.value;
+      input.value = '';
+      const li = createLI(text);
+      ul.appendChild(li);
+    }
   });
     
   ul.addEventListener('change', (e) => {
@@ -109,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nameActions[action]();
     }
   });  
-});  
+});
   
   
   
