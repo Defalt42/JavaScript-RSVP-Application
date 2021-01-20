@@ -57,18 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return li;
   }
   form.addEventListener('submit', (e) => {
-    function showError() {
-      if(input.validity.valueMissing) {
-        // If the field is empty
-        // display the following error message.
-        inputError.textContent = 'You need to enter a name.';
-      }
-    }
     e.preventDefault();
-    if (!input.validity.valid) {
-      showError();
+    const text = input.value;
+    if (text === '') {
+      alert("Please enter a name");
+      input.focus();
     } else {
-      const text = input.value;
       input.value = '';
       const li = createLI(text);
       ul.appendChild(li);
