@@ -63,6 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("Please enter a name");
       input.focus();
     } else {
+      const invitees = document.querySelectorAll('#invitedList li');
+      if (invitees != undefined) {
+        console.log(invitees[0]);
+      }
       input.value = '';
       const li = createLI(text);
       ul.appendChild(li);
