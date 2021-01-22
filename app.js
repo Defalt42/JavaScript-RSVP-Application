@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (li.className === 'responded') {
           li.style.display = '';  
         } else {
-          li.style.display = 'none';                        
+          li.style.display = 'none';                       
         }
       }
     } else {
@@ -58,18 +58,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const text = input.value;
-    if (text === '') {
+    const name = input.value;
+    function alreadyInvited(name) {
+      const invitees = document.querySelectorAll('#invitedList li span');
+      for (let i = 0; i < invitees.length; i++) {
+        console.log(invitees);
+        if (name === invitees[i].textContent) {
+          return true;
+        }
+      }
+      return false;
+    }
+    if (name === '') {
       alert("Please enter a name");
       input.focus();
     } else {
-      const invitees = document.querySelectorAll('#invitedList li');
-      if (invitees != undefined) {
-        console.log(invitees[0]);
-      }
       input.value = '';
-      const li = createLI(text);
-      ul.appendChild(li);
+      if (alreadyInvited(name)) {
+        alert(name + " is already on the list");
+        input.focus();
+      } else {
+        const li = createLI(name);
+        ul.appendChild(li);
+      }
     }
   });
     
